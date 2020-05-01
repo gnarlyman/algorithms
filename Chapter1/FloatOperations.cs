@@ -92,21 +92,8 @@ namespace Chapter1
                 return  numerator / lcd * sign;
             }
         }
-
-        private static string WholeToBinary(int n)
-        {
-            var quotient = n;
-            var output = "";
-            while (quotient > 0)
-            {
-                quotient = Math.DivRem(quotient, 2, out var remainder);
-                output = $"{remainder:X}{output}";
-            }
-
-            return output;
-        }
-
-        public static bool[] ConvertFloatToArray(float f)
+        
+        private static bool[] ConvertFloatToArray(float f)
         {
             var ba = BitConverter.GetBytes(f);
             var arrBits = new bool[32];
