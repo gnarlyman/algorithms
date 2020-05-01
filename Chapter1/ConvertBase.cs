@@ -16,7 +16,7 @@ namespace Chapter1
                 {
                     throw new Exception($"invalid source base {baseSystem} for {numberString}");
                 }
-                Console.WriteLine($"numberString index {i}: {iLong}");
+                // Console.WriteLine($"numberString index {i}: {iLong}");
                 val += iLong * multiplier;
                 multiplier *= baseSystem;
             }

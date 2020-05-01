@@ -20,6 +20,10 @@ namespace Chapter1
         {
             private readonly bool[] _bits;
 
+            private int Sign => _bits.Take(1).First() ? -1 : 1;
+            private bool[] Exponent => _bits.Skip(1).Take(8).ToArray();
+            private bool[] Mantissa => _bits.Skip(9).ToArray();
+
             public Float32(bool[] bits)
             {
                 _bits = bits;
@@ -43,23 +47,18 @@ namespace Chapter1
 
             public float ToDecimal()
             {
-                var sign = _bits.Take(1).First() ? -1 : 1;
-                var exponent = _bits.Skip(1).Take(8).ToArray();
-                var mantissa = _bits.Skip(9).ToArray();
-                
-                
                 var lcd = 0;
                 var numerator = 0f;
-                for (var i = mantissa.Length; i --> 0;)
+                for (var i = Mantissa.Length; i --> 0;)
                 {
-                    if (!mantissa[i]) continue;
+                    if (!Mantissa[i]) continue;
                 
                     // get least common denominator
                     if (lcd == 0)
                     {
                         lcd = (int) Math.Pow(2, i+1);
                         numerator += 1;
-                        Console.WriteLine($"LCD: {lcd}");
+                        // Console.WriteLine($"LCD: {lcd}");
                     }
                     else
                     {
@@ -73,9 +72,9 @@ namespace Chapter1
                 // apply exponent to numerator
                 var multiplier = 1;
                 var exp = 0;
-                for (var i = exponent.Length; i --> 0;)
+                for (var i = Exponent.Length; i --> 0;)
                 {
-                    var t = exponent[i] ? 1 : 0;
+                    var t = Exponent[i] ? 1 : 0;
                     exp += t * multiplier;
                     multiplier *= 2;
                 }
@@ -83,13 +82,13 @@ namespace Chapter1
                 // account for 255 based storage
                 exp -= 127;
                 
-                Console.WriteLine($"Exponent: {exp}");
+                // Console.WriteLine($"Exponent: {exp}");
                 
                 numerator *= (float)Math.Pow(2, exp);
                 
-                Console.WriteLine($"Numerator: {numerator}");
+                // Console.WriteLine($"Numerator: {numerator}");
                 
-                return  numerator / lcd * sign;
+                return  numerator / lcd * Sign;
             }
         }
         
