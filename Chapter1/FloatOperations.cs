@@ -43,7 +43,7 @@ namespace Chapter1
 
             public float ToDecimal()
             {
-                var sign = _bits.Take(1).First();
+                var sign = _bits.Take(1).First() ? -1 : 1;
                 var exponent = _bits.Skip(1).Take(8).ToArray();
                 var mantissa = _bits.Skip(9).ToArray();
                 
@@ -63,7 +63,7 @@ namespace Chapter1
                     }
                     else
                     {
-                        numerator += lcd / (int) Math.Pow(2, i+1);
+                        numerator += lcd / (float) Math.Pow(2, i+1);
                     }
                 }
                 
@@ -89,7 +89,7 @@ namespace Chapter1
                 
                 Console.WriteLine($"Numerator: {numerator}");
                 
-                return  numerator / (float)lcd;
+                return  numerator / lcd * sign;
             }
         }
 

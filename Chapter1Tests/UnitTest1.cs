@@ -3,7 +3,9 @@ using NUnit.Framework;
 
 namespace Chapter1Tests
 {
-    public class Tests
+    
+    [TestFixture]
+    public class ConvertBaseTests
     {
         [Test]
         public void TestBase10ToBase2()
@@ -38,6 +40,50 @@ namespace Chapter1Tests
         {
             var r = ConvertBase.ConvertBaseString("AB123B", 16, 8);
             Assert.AreEqual("52611073", r);
+        }
+    }
+
+    [TestFixture]
+    public class FloatOperationsTests{
+
+        [Test]
+        public void TestFromFloatWholeNumber()
+        {
+            const float expected = 181819f;
+            var fl = FloatOperations.FromFloat(expected);
+            Assert.AreEqual(expected, fl.ToDecimal());
+        }
+
+        [Test]
+        public void TestFromFloatDecimalNumber()
+        {
+            const float expected = 18.000481f;
+            var fl = FloatOperations.FromFloat(expected);
+            Assert.AreEqual(expected, fl.ToDecimal());
+        }
+
+        [Test]
+        public void TestFromFloatSubOneDecimal()
+        {
+            const float expected = 0.0013581f;
+            var fl = FloatOperations.FromFloat(expected);
+            Assert.AreEqual(expected, fl.ToDecimal());
+        }
+        
+        [Test]
+        public void TestFromFloatNegative()
+        {
+            const float expected = -1015f;
+            var fl = FloatOperations.FromFloat(expected);
+            Assert.AreEqual(expected, fl.ToDecimal());
+        }
+
+        [Test]
+        public void TestFromFloatSubZeroDecimal()
+        {
+            const float expected = -1.007147101f;
+            var fl = FloatOperations.FromFloat(expected);
+            Assert.AreEqual(expected, fl.ToDecimal());
         }
     }
 }
